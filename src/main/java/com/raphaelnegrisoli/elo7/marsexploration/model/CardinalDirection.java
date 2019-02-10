@@ -16,7 +16,8 @@ public enum CardinalDirection {
 
     static {
 
-        Arrays.stream(values()).forEach(v -> CARDINAL_DIRECTION_BY_MNEMONIC.put(v.getMnemonic(), v));
+        Arrays.stream(values()).forEach(value ->
+                CARDINAL_DIRECTION_BY_MNEMONIC.put(value.getMnemonic(), value));
     }
 
     private final String mnemonic;
@@ -31,7 +32,7 @@ public enum CardinalDirection {
         return mnemonic;
     }
 
-    public CardinalDirection fromMnemonic(final String mnemonic) {
+    public static CardinalDirection fromMnemonic(final String mnemonic) {
 
         if (!CARDINAL_DIRECTION_BY_MNEMONIC.containsKey(mnemonic)) {
 
