@@ -18,7 +18,7 @@ public class ProbeTest {
     public void testMove_north() {
 
         when(plateau.isValidCoordinate(5, 6)).thenReturn(true);
-        when(plateau.isAvailable(5, 6)).thenReturn(true);
+        when(plateau.isCoordinateAvailable(5, 6)).thenReturn(true);
 
         final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
         probe.move();
@@ -31,7 +31,7 @@ public class ProbeTest {
     public void testMove_south() {
 
         when(plateau.isValidCoordinate(5, 4)).thenReturn(true);
-        when(plateau.isAvailable(5, 4)).thenReturn(true);
+        when(plateau.isCoordinateAvailable(5, 4)).thenReturn(true);
 
         final Probe probe = new Probe(5, 5, CardinalDirection.SOUTH, plateau);
         probe.move();
@@ -44,7 +44,7 @@ public class ProbeTest {
     public void testMove_east() {
 
         when(plateau.isValidCoordinate(6, 5)).thenReturn(true);
-        when(plateau.isAvailable(6, 5)).thenReturn(true);
+        when(plateau.isCoordinateAvailable(6, 5)).thenReturn(true);
 
         final Probe probe = new Probe(5, 5, CardinalDirection.EAST, plateau);
         probe.move();
@@ -57,7 +57,7 @@ public class ProbeTest {
     public void testMove_west() {
 
         when(plateau.isValidCoordinate(4, 5)).thenReturn(true);
-        when(plateau.isAvailable(4, 5)).thenReturn(true);
+        when(plateau.isCoordinateAvailable(4, 5)).thenReturn(true);
 
         final Probe probe = new Probe(5, 5, CardinalDirection.WEST, plateau);
         probe.move();
@@ -70,7 +70,6 @@ public class ProbeTest {
     public void testMove_invalidCoordinate() {
 
         when(plateau.isValidCoordinate(5, 6)).thenReturn(false);
-        when(plateau.isAvailable(5, 6)).thenReturn(true);
 
         final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
         probe.move();
@@ -82,7 +81,7 @@ public class ProbeTest {
     public void testMove_unavailableCoordinate() {
 
         when(plateau.isValidCoordinate(5, 6)).thenReturn(true);
-        when(plateau.isAvailable(5, 6)).thenReturn(false);
+        when(plateau.isCoordinateAvailable(5, 6)).thenReturn(false);
 
         final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
         probe.move();

@@ -96,7 +96,7 @@ public class Probe {
             throw new IllegalStateException(message);
         }
 
-        if (!plateau.isAvailable(x, y)) {
+        if (!plateau.isCoordinateAvailable(x, y)) {
             final String message = String.format("Coordinate (%s, %s) already has another probe. " +
                     "Aborting the command.", x, y);
             LOGGER.error("Move probe {} to unavailable coordinate ({}, {})", this, x, y);

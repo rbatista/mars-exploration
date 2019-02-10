@@ -3,6 +3,7 @@ package com.raphaelnegrisoli.elo7.marsexploration.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Plateau {
@@ -10,46 +11,59 @@ public class Plateau {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private final int width;
-    private final int height;
 
-    @OneToMany(mappedBy = "plateau")
-    private final List<Probe> probes;
+    private Integer width;
 
-    public Plateau(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.probes = new ArrayList<>();
+    private Integer height;
+
+    @OneToMany(mappedBy = "plateau", cascade = CascadeType.ALL)
+    private List<Probe> probes;
+
+    public Integer getId() {
+        return id;
     }
 
-    public int getWidth() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public Integer getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
 
+    public Integer getHeight() {
         return height;
     }
 
-    public void addProbe(final Probe probe) {
-
-        this.probes.add(probe);
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 
-    public boolean isValidCoordinate(int x, int y) {
+    public void addProbe(final Probe probe) {
+        if (Objects.isNull(probes)) {
+            probes = new ArrayList<>();
+        }
+
+        probes.add(probe);
+    }
+
+    public boolean isValidCoordinate(final Integer x, final Integer y) {
         return isValidWidth(x) && isValidHeight(y);
     }
 
-    private boolean isValidHeight(int y) {
+    private boolean isValidHeight(final Integer y) {
         return y >= 0 && y <= height;
     }
 
-    private boolean isValidWidth(int x) {
+    private boolean isValidWidth(final Integer x) {
         return x >= 0 && x <= width;
     }
 
-    public boolean isAvailable(int x, int y) {
+    public boolean isCoordinateAvailable(final Integer x, final Integer y) {
         for (final Probe probe : probes) {
             if (probe.getX() == x && probe.getY() == y) {
 
