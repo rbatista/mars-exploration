@@ -25,18 +25,54 @@ public class CardinalDirectionTest {
 
     @Test
     @UseDataProvider("fromMnemonicDataProvider")
-    public void fromMnemonic(final String mnemonic, final CardinalDirection expected) {
+    public void testFromMnemonic(final String mnemonic, final CardinalDirection expected) {
 
         final CardinalDirection result = CardinalDirection.fromMnemonic(mnemonic);
         assertEquals(expected, result);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void fromMnemonic_throwsExceptionOnInvalidValue() {
+    public void testFromMnemonic_throwsExceptionOnInvalidValue() {
 
         final String invalidDirection = "X";
         CardinalDirection.fromMnemonic(invalidDirection);
         Assert.fail("An invalid direction should throw exception");
+    }
+
+    @DataProvider
+    public static Object[][] leftDirectionDataProvider() {
+
+        return new Object[][] {
+                { CardinalDirection.NORTH, CardinalDirection.WEST },
+                { CardinalDirection.WEST, CardinalDirection.SOUTH },
+                { CardinalDirection.SOUTH, CardinalDirection.EAST },
+                { CardinalDirection.EAST, CardinalDirection.NORTH },
+        };
+    }
+
+    @Test
+    @UseDataProvider("leftDirectionDataProvider")
+    public void testRotateLeft(final CardinalDirection direction, final CardinalDirection expected) {
+
+        assertEquals(expected, direction.getLeftDirection());
+    }
+
+    @DataProvider
+    public static Object[][] rightDirectionDataProvider() {
+
+        return new Object[][] {
+                { CardinalDirection.NORTH, CardinalDirection.EAST },
+                { CardinalDirection.EAST, CardinalDirection.SOUTH },
+                { CardinalDirection.SOUTH, CardinalDirection.WEST },
+                { CardinalDirection.WEST, CardinalDirection.NORTH },
+        };
+    }
+
+    @Test
+    @UseDataProvider("rightDirectionDataProvider")
+    public void testRightDirection(final CardinalDirection direction, final CardinalDirection expected) {
+
+        assertEquals(expected, direction.getRightDirection());
     }
 
 }

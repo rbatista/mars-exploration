@@ -32,6 +32,20 @@ public enum CardinalDirection {
         return mnemonic;
     }
 
+    public CardinalDirection getLeftDirection() {
+
+        final CardinalDirection[] directions = values();
+        int indexAtLeftDirection = (directions.length + ordinal() - 1) % directions.length;
+        return directions[indexAtLeftDirection];
+    }
+
+    public CardinalDirection getRightDirection() {
+
+        final CardinalDirection[] directions = values();
+        int indexAtRightDirection = (ordinal() + 1) % directions.length;
+        return directions[indexAtRightDirection];
+    }
+
     public static CardinalDirection fromMnemonic(final String mnemonic) {
 
         if (!CARDINAL_DIRECTION_BY_MNEMONIC.containsKey(mnemonic)) {

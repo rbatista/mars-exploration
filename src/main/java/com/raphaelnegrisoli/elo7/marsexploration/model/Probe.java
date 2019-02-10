@@ -24,8 +24,4 @@ public class Probe {
         return currentDirection;
     }
 
-    public void turnRight() {
-
-
-    }
 }
