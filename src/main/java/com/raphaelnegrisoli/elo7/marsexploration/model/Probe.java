@@ -17,14 +17,20 @@ public class Probe {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private int x;
-    private int y;
+    private Integer x;
+
+    private Integer y;
+
+    @Enumerated(EnumType.STRING)
     private CardinalDirection currentDirection;
 
     @ManyToOne
-    private final Plateau plateau;
+    private Plateau plateau;
 
-    public Probe(final int x, final int y, final CardinalDirection initialDirection,
+    public Probe() {
+    }
+
+    public Probe(final Integer x, final Integer y, final CardinalDirection initialDirection,
                  final Plateau plateau) {
         this.x = x;
         this.y = y;
@@ -32,16 +38,44 @@ public class Probe {
         this.plateau = plateau;
     }
 
-    public int getX() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(final Integer id) {
+        this.id = id;
+    }
+
+    public Integer getX() {
         return x;
     }
 
-    public int getY() {
+    public void setX(Integer x) {
+        this.x = x;
+    }
+
+    public Integer getY() {
         return y;
+    }
+
+    public void setY(Integer y) {
+        this.y = y;
     }
 
     public CardinalDirection getCurrentDirection() {
         return currentDirection;
+    }
+
+    public void setCurrentDirection(CardinalDirection currentDirection) {
+        this.currentDirection = currentDirection;
+    }
+
+    public Plateau getPlateau() {
+        return plateau;
+    }
+
+    public void setPlateau(final Plateau plateau) {
+        this.plateau = plateau;
     }
 
     public void turnLeft() {
@@ -114,7 +148,7 @@ public class Probe {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

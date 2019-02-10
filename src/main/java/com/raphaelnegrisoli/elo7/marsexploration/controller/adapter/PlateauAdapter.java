@@ -2,13 +2,14 @@ package com.raphaelnegrisoli.elo7.marsexploration.controller.adapter;
 
 import com.raphaelnegrisoli.elo7.marsexploration.controller.dto.PlateauDTO;
 import com.raphaelnegrisoli.elo7.marsexploration.model.Plateau;
+import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PlateauAdapter {
 
-    private final DefaultMapperFactory mapperFactory;
+    private final MapperFactory mapperFactory;
 
     public PlateauAdapter() {
 

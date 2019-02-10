@@ -23,8 +23,8 @@ public class PlateauController {
     @PostMapping
     public PlateauDTO create(@Valid @RequestBody final PlateauDTO dto) {
         final Plateau request = plateauAdapter.adapt(dto);
-        final Plateau created = plateauService.create(request);
-        return plateauAdapter.adapt(created);
+        final Plateau response = plateauService.create(request);
+        return plateauAdapter.adapt(response);
     }
 
     @GetMapping("/{id}")
