@@ -6,13 +6,22 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.*;
+
+@Entity
 public class Probe {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Probe.class);
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     private int x;
     private int y;
     private CardinalDirection currentDirection;
+
+    @ManyToOne
     private final Plateau plateau;
 
     public Probe(final int x, final int y, final CardinalDirection initialDirection,

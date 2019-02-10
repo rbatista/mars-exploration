@@ -1,12 +1,19 @@
 package com.raphaelnegrisoli.elo7.marsexploration.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Plateau {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private final int width;
     private final int height;
+
+    @OneToMany(mappedBy = "plateau")
     private final List<Probe> probes;
 
     public Plateau(int width, int height) {
