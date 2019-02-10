@@ -1,5 +1,7 @@
 package com.raphaelnegrisoli.elo7.marsexploration.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +13,14 @@ public class Probe {
     private int x;
     private int y;
     private CardinalDirection currentDirection;
-    private final Plain plain;
+    private final Plateau plateau;
 
     public Probe(final int x, final int y, final CardinalDirection initialDirection,
-                 final Plain plain) {
+                 final Plateau plateau) {
         this.x = x;
         this.y = y;
         this.currentDirection = initialDirection;
-        this.plain = plain;
+        this.plateau = plateau;
     }
 
     public int getX() {
@@ -79,13 +81,13 @@ public class Probe {
     }
 
     private void validateCoordinate(int x, int y) {
-        if (!plain.isValidCoordinate(x, y)) {
+        if (!plateau.isValidCoordinate(x, y)) {
             final String message = String.format("Coordinate (%s, %s) is not valid. Aborting the command.", x, y);
             LOGGER.error("Move probe {} to invalid coordinate ({}, {})", this, x, y);
             throw new IllegalStateException(message);
         }
 
-        if (!plain.isAvailable(x, y)) {
+        if (!plateau.isAvailable(x, y)) {
             final String message = String.format("Coordinate (%s, %s) already has another probe. " +
                     "Aborting the command.", x, y);
             LOGGER.error("Move probe {} to unavailable coordinate ({}, {})", this, x, y);
@@ -101,4 +103,35 @@ public class Probe {
                 .append("currentDirection", currentDirection)
                 .toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        final Probe probe = (Probe) o;
+
+        return new EqualsBuilder()
+                .append(x, probe.x)
+                .append(y, probe.y)
+                .append(currentDirection, probe.currentDirection)
+                .append(plateau, probe.plateau)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(x)
+                .append(y)
+                .append(currentDirection)
+                .append(plateau)
+                .toHashCode();
+    }
+
 }

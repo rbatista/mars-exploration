@@ -3,7 +3,6 @@ package com.raphaelnegrisoli.elo7.marsexploration.model;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
@@ -13,15 +12,15 @@ import static org.mockito.Mockito.when;
 public class ProbeTest {
 
     @Mock
-    private Plain plain;
+    private Plateau plateau;
 
     @Test
     public void testMove_north() {
 
-        when(plain.isValidCoordinate(5, 6)).thenReturn(true);
-        when(plain.isAvailable(5, 6)).thenReturn(true);
+        when(plateau.isValidCoordinate(5, 6)).thenReturn(true);
+        when(plateau.isAvailable(5, 6)).thenReturn(true);
 
-        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plain);
+        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
         probe.move();
 
         assertEquals(5, probe.getX());
@@ -31,10 +30,10 @@ public class ProbeTest {
     @Test
     public void testMove_south() {
 
-        when(plain.isValidCoordinate(5, 4)).thenReturn(true);
-        when(plain.isAvailable(5, 4)).thenReturn(true);
+        when(plateau.isValidCoordinate(5, 4)).thenReturn(true);
+        when(plateau.isAvailable(5, 4)).thenReturn(true);
 
-        final Probe probe = new Probe(5, 5, CardinalDirection.SOUTH, plain);
+        final Probe probe = new Probe(5, 5, CardinalDirection.SOUTH, plateau);
         probe.move();
 
         assertEquals(5, probe.getX());
@@ -44,10 +43,10 @@ public class ProbeTest {
     @Test
     public void testMove_east() {
 
-        when(plain.isValidCoordinate(6, 5)).thenReturn(true);
-        when(plain.isAvailable(6, 5)).thenReturn(true);
+        when(plateau.isValidCoordinate(6, 5)).thenReturn(true);
+        when(plateau.isAvailable(6, 5)).thenReturn(true);
 
-        final Probe probe = new Probe(5, 5, CardinalDirection.EAST, plain);
+        final Probe probe = new Probe(5, 5, CardinalDirection.EAST, plateau);
         probe.move();
 
         assertEquals(6, probe.getX());
@@ -57,10 +56,10 @@ public class ProbeTest {
     @Test
     public void testMove_west() {
 
-        when(plain.isValidCoordinate(4, 5)).thenReturn(true);
-        when(plain.isAvailable(4, 5)).thenReturn(true);
+        when(plateau.isValidCoordinate(4, 5)).thenReturn(true);
+        when(plateau.isAvailable(4, 5)).thenReturn(true);
 
-        final Probe probe = new Probe(5, 5, CardinalDirection.WEST, plain);
+        final Probe probe = new Probe(5, 5, CardinalDirection.WEST, plateau);
         probe.move();
 
         assertEquals(4, probe.getX());
@@ -70,10 +69,10 @@ public class ProbeTest {
     @Test(expected = IllegalStateException.class)
     public void testMove_invalidCoordinate() {
 
-        when(plain.isValidCoordinate(5, 6)).thenReturn(false);
-        when(plain.isAvailable(5, 6)).thenReturn(true);
+        when(plateau.isValidCoordinate(5, 6)).thenReturn(false);
+        when(plateau.isAvailable(5, 6)).thenReturn(true);
 
-        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plain);
+        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
         probe.move();
 
         fail("Invalid coordinate should throw an exception");
@@ -82,10 +81,10 @@ public class ProbeTest {
     @Test(expected = IllegalStateException.class)
     public void testMove_unavailableCoordinate() {
 
-        when(plain.isValidCoordinate(5, 6)).thenReturn(true);
-        when(plain.isAvailable(5, 6)).thenReturn(false);
+        when(plateau.isValidCoordinate(5, 6)).thenReturn(true);
+        when(plateau.isAvailable(5, 6)).thenReturn(false);
 
-        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plain);
+        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
         probe.move();
 
         fail("Unavailable coordinate should throw an exception");

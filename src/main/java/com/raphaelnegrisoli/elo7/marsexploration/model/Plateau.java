@@ -3,13 +3,13 @@ package com.raphaelnegrisoli.elo7.marsexploration.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Plain {
+public class Plateau {
 
     private final int width;
     private final int height;
     private final List<Probe> probes;
 
-    public Plain(int width, int height) {
+    public Plateau(int width, int height) {
         this.width = width;
         this.height = height;
         this.probes = new ArrayList<>();
@@ -23,6 +23,11 @@ public class Plain {
     public int getHeight() {
 
         return height;
+    }
+
+    public void addProbe(final Probe probe) {
+
+        this.probes.add(probe);
     }
 
     public boolean isValidCoordinate(int x, int y) {
