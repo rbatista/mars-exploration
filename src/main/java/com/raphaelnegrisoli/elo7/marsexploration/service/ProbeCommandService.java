@@ -20,4 +20,5 @@ public class ProbeCommandService {
         command.execute(probe);
         probeService.save(probe);
     }
+
 }
