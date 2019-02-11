@@ -13,11 +13,11 @@ public class ProbeDTO {
 
     @NotNull
     @Min(0)
-    private Integer x;
+    private Integer longitude;
 
     @NotNull
     @Min(0)
-    private Integer y;
+    private Integer latitude;
 
     @NotEmpty
     private String currentDirection;
@@ -38,20 +38,20 @@ public class ProbeDTO {
         this.plateauId = plateauId;
     }
 
-    public Integer getX() {
-        return x;
+    public Integer getLongitude() {
+        return longitude;
     }
 
-    public void setX(final Integer x) {
-        this.x = x;
+    public void setLongitude(final Integer longitude) {
+        this.longitude = longitude;
     }
 
-    public Integer getY() {
-        return y;
+    public Integer getLatitude() {
+        return latitude;
     }
 
-    public void setY(final Integer y) {
-        this.y = y;
+    public void setLatitude(final Integer latitude) {
+        this.latitude = latitude;
     }
 
     public String getCurrentDirection() {

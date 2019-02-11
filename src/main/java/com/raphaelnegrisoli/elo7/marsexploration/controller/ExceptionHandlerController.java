@@ -4,6 +4,7 @@ import com.raphaelnegrisoli.elo7.marsexploration.controller.dto.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +29,7 @@ public class ExceptionHandlerController {
     @ResponseBody
     public ErrorResponse handleIllegalArgumentException(final IllegalArgumentException e) {
 
-        LOGGER.error("Bad request", e);
+        LOGGER.error("Illegal argument", e);
         return new ErrorResponse(e.getMessage());
     }
 
@@ -37,8 +38,16 @@ public class ExceptionHandlerController {
     @ResponseBody
     public ErrorResponse handleIllegalStateException(final IllegalStateException e) {
 
-        LOGGER.error("Bad request", e);
+        LOGGER.error("Illegal state", e);
         return new ErrorResponse(e.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public ErrorResponse handleMethodArgumentInvalid(final MethodArgumentNotValidException e) {
+
+        LOGGER.error("Invalid argument", e);
+        return new ErrorResponse(e.getMessage());
+    }
 }

@@ -65,7 +65,7 @@ public class Plateau {
 
     public boolean isCoordinateAvailable(final Integer x, final Integer y) {
         for (final Probe probe : probes) {
-            if (probe.getX() == x && probe.getY() == y) {
+            if (probe.getLongitude() == x && probe.getLatitude() == y) {
 
                 return false;
             }

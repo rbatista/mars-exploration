@@ -23,8 +23,8 @@ public class ProbeTest {
         final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
         probe.move();
 
-        assertEquals((Integer) 5, probe.getX());
-        assertEquals((Integer) 6, probe.getY());
+        assertEquals((Integer) 5, probe.getLongitude());
+        assertEquals((Integer) 6, probe.getLatitude());
     }
 
     @Test
@@ -36,8 +36,8 @@ public class ProbeTest {
         final Probe probe = new Probe(5, 5, CardinalDirection.SOUTH, plateau);
         probe.move();
 
-        assertEquals((Integer) 5, probe.getX());
-        assertEquals((Integer) 4, probe.getY());
+        assertEquals((Integer) 5, probe.getLongitude());
+        assertEquals((Integer) 4, probe.getLatitude());
     }
 
     @Test
@@ -49,8 +49,8 @@ public class ProbeTest {
         final Probe probe = new Probe(5, 5, CardinalDirection.EAST, plateau);
         probe.move();
 
-        assertEquals((Integer) 6, probe.getX());
-        assertEquals((Integer) 5, probe.getY());
+        assertEquals((Integer) 6, probe.getLongitude());
+        assertEquals((Integer) 5, probe.getLatitude());
     }
 
     @Test
@@ -62,8 +62,8 @@ public class ProbeTest {
         final Probe probe = new Probe(5, 5, CardinalDirection.WEST, plateau);
         probe.move();
 
-        assertEquals((Integer) 4, probe.getX());
-        assertEquals((Integer) 5, probe.getY());
+        assertEquals((Integer) 4, probe.getLongitude());
+        assertEquals((Integer) 5, probe.getLatitude());
     }
 
     @Test(expected = IllegalStateException.class)

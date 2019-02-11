@@ -17,9 +17,9 @@ public class Probe {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Integer x;
+    private Integer longitude;
 
-    private Integer y;
+    private Integer latitude;
 
     @Enumerated(EnumType.STRING)
     private CardinalDirection currentDirection;
@@ -30,10 +30,10 @@ public class Probe {
     public Probe() {
     }
 
-    public Probe(final Integer x, final Integer y, final CardinalDirection initialDirection,
+    public Probe(final Integer longitude, final Integer latitude, final CardinalDirection initialDirection,
                  final Plateau plateau) {
-        this.x = x;
-        this.y = y;
+        this.longitude = longitude;
+        this.latitude = latitude;
         this.currentDirection = initialDirection;
         this.plateau = plateau;
     }
@@ -46,20 +46,20 @@ public class Probe {
         this.id = id;
     }
 
-    public Integer getX() {
-        return x;
+    public Integer getLongitude() {
+        return longitude;
     }
 
-    public void setX(Integer x) {
-        this.x = x;
+    public void setLongitude(Integer longitude) {
+        this.longitude = longitude;
     }
 
-    public Integer getY() {
-        return y;
+    public Integer getLatitude() {
+        return latitude;
     }
 
-    public void setY(Integer y) {
-        this.y = y;
+    public void setLatitude(Integer latitude) {
+        this.latitude = latitude;
     }
 
     public CardinalDirection getCurrentDirection() {
@@ -104,36 +104,36 @@ public class Probe {
     }
 
     private void moveNorth() {
-        validateCoordinate(x, y + 1);
-        y += 1;
+        validateCoordinate(longitude, latitude + 1);
+        latitude += 1;
     }
 
     private void moveSouth() {
-        validateCoordinate(x, y - 1);
-        y -= 1;
+        validateCoordinate(longitude, latitude - 1);
+        latitude -= 1;
     }
 
     private void moveEast() {
-        validateCoordinate(x + 1, y);
-        x += 1;
+        validateCoordinate(longitude + 1, latitude);
+        longitude += 1;
     }
 
     private void moveWest() {
-        validateCoordinate(x - 1, y);
-        x -= 1;
+        validateCoordinate(longitude - 1, latitude);
+        longitude -= 1;
     }
 
-    private void validateCoordinate(int x, int y) {
-        if (!plateau.isValidCoordinate(x, y)) {
-            final String message = String.format("Coordinate (%s, %s) is not valid. Aborting the command.", x, y);
-            LOGGER.error("Move probe {} to invalid coordinate ({}, {})", this, x, y);
+    private void validateCoordinate(int longitude, int latitude) {
+        if (!plateau.isValidCoordinate(longitude, latitude)) {
+            final String message = String.format("Coordinate (%s, %s) is not valid. Aborting the command.", longitude, latitude);
+            LOGGER.error("Move probe {} to invalid coordinate ({}, {})", this, longitude, latitude);
             throw new IllegalStateException(message);
         }
 
-        if (!plateau.isCoordinateAvailable(x, y)) {
+        if (!plateau.isCoordinateAvailable(longitude, latitude)) {
             final String message = String.format("Coordinate (%s, %s) already has another probe. " +
-                    "Aborting the command.", x, y);
-            LOGGER.error("Move probe {} to unavailable coordinate ({}, {})", this, x, y);
+                    "Aborting the command.", longitude, latitude);
+            LOGGER.error("Move probe {} to unavailable coordinate ({}, {})", this, longitude, latitude);
             throw new IllegalStateException(message);
         }
     }
@@ -141,8 +141,8 @@ public class Probe {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("x", x)
-                .append("y", y)
+                .append("longitude", longitude)
+                .append("latitude", latitude)
                 .append("currentDirection", currentDirection)
                 .toString();
     }
@@ -160,8 +160,8 @@ public class Probe {
         final Probe probe = (Probe) o;
 
         return new EqualsBuilder()
-                .append(x, probe.x)
-                .append(y, probe.y)
+                .append(longitude, probe.longitude)
+                .append(latitude, probe.latitude)
                 .append(currentDirection, probe.currentDirection)
                 .append(plateau, probe.plateau)
                 .isEquals();
@@ -170,8 +170,8 @@ public class Probe {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(x)
-                .append(y)
+                .append(longitude)
+                .append(latitude)
                 .append(currentDirection)
                 .append(plateau)
                 .toHashCode();

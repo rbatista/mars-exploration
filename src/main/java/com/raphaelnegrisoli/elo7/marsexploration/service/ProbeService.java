@@ -2,7 +2,6 @@ package com.raphaelnegrisoli.elo7.marsexploration.service;
 
 import com.raphaelnegrisoli.elo7.marsexploration.model.Plateau;
 import com.raphaelnegrisoli.elo7.marsexploration.model.Probe;
-import com.raphaelnegrisoli.elo7.marsexploration.repository.PlateauRepository;
 import com.raphaelnegrisoli.elo7.marsexploration.repository.ProbeRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +21,17 @@ public class ProbeService {
     }
 
     public Probe save(final Probe probe) {
+        checkCoordinates(probe);
         loadPlateau(probe);
         return probeRepository.save(probe);
+    }
+
+    private void checkCoordinates(final Probe probe) {
+        final Optional<Probe> probeAtSamePosition = probeRepository.findByLongitudeAndLatitude(probe.getLongitude(),
+                probe.getLatitude());
+        if (probeAtSamePosition.isPresent()) {
+            throw new IllegalArgumentException("Probe already deployed on the same coordinates");
+        }
     }
 
     private void loadPlateau(final Probe probe) {
