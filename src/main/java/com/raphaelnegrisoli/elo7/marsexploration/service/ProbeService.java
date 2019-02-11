@@ -21,7 +21,7 @@ public class ProbeService {
         this.plateauService = plateauService;
     }
 
-    public Probe create(final Probe probe) {
+    public Probe save(final Probe probe) {
         loadPlateau(probe);
         return probeRepository.save(probe);
     }

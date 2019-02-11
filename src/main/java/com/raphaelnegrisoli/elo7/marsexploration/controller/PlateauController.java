@@ -23,7 +23,7 @@ public class PlateauController {
     @PostMapping
     public PlateauDTO create(@Valid @RequestBody final PlateauDTO dto) {
         final Plateau request = plateauAdapter.adapt(dto);
-        final Plateau response = plateauService.create(request);
+        final Plateau response = plateauService.save(request);
         return plateauAdapter.adapt(response);
     }
 

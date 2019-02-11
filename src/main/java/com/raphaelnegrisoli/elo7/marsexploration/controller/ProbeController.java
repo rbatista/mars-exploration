@@ -25,7 +25,7 @@ public class ProbeController {
     @PostMapping("/")
     public ProbeDTO create(@Valid @RequestBody final ProbeDTO dto) {
         final Probe request = probeAdapter.adapt(dto);
-        final Probe response = probeService.create(request);
+        final Probe response = probeService.save(request);
         return probeAdapter.adapt(response);
     }
 

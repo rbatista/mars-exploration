@@ -13,7 +13,7 @@ public class PlateauService {
         this.plateauRepository = plateauRepository;
     }
 
-    public Plateau create(final Plateau plateau) {
+    public Plateau save(final Plateau plateau) {
         return plateauRepository.save(plateau);
     }
 
