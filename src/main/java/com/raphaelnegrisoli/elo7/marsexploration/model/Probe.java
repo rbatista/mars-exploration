@@ -93,15 +93,15 @@ public class Probe {
         }
     }
 
-    public void turnLeft() {
+    private void turnLeft() {
         this.currentDirection = currentDirection.getLeftDirection();
     }
 
-    public void turnRight() {
+    private void turnRight() {
         this.currentDirection = currentDirection.getRightDirection();
     }
 
-    public void move() {
+    private void move() {
         switch (currentDirection) {
             case NORTH:
                 moveNorth();
