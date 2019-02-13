@@ -17,7 +17,7 @@ public class Plateau {
     private Integer height;
 
     @OneToMany(mappedBy = "plateau", cascade = CascadeType.ALL)
-    private List<Probe> probes;
+    private List<Probe> probes = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -43,11 +43,7 @@ public class Plateau {
         this.height = height;
     }
 
-    public void addProbe(final Probe probe) {
-        if (Objects.isNull(probes)) {
-            probes = new ArrayList<>();
-        }
-
+    public synchronized void addProbe(final Probe probe) {
         probes.add(probe);
     }
 
@@ -73,4 +69,5 @@ public class Plateau {
 
         return true;
     }
+
 }
