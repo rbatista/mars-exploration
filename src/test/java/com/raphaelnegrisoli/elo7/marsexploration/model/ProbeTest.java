@@ -88,4 +88,41 @@ public class ProbeTest {
 
         fail("Unavailable coordinate should throw an exception");
     }
+
+    @Test
+    public void testExecuteCommand_turnLeft() {
+
+        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
+        probe.executeCommand(ProbeCommand.TURN_LEFT);
+
+        assertEquals(CardinalDirection.WEST, probe.getCurrentDirection());
+        assertEquals((Integer) 5, probe.getLongitude());
+        assertEquals((Integer) 5, probe.getLatitude());
+    }
+
+    @Test
+    public void testExecuteCommand_turnRight() {
+
+        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
+        probe.executeCommand(ProbeCommand.TURN_RIGHT);
+
+        assertEquals(CardinalDirection.EAST, probe.getCurrentDirection());
+        assertEquals((Integer) 5, probe.getLongitude());
+        assertEquals((Integer) 5, probe.getLatitude());
+    }
+
+    @Test
+    public void testExecuteCommand_turnMove() {
+
+        when(plateau.isValidCoordinate(5, 6)).thenReturn(true);
+        when(plateau.isCoordinateAvailable(5, 6)).thenReturn(true);
+
+        final Probe probe = new Probe(5, 5, CardinalDirection.NORTH, plateau);
+        probe.executeCommand(ProbeCommand.MOVE);
+
+        assertEquals(CardinalDirection.NORTH, probe.getCurrentDirection());
+        assertEquals((Integer) 5, probe.getLongitude());
+        assertEquals((Integer) 6, probe.getLatitude());
+    }
+
 }

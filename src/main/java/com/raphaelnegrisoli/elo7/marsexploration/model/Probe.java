@@ -78,6 +78,21 @@ public class Probe {
         this.plateau = plateau;
     }
 
+    public void executeCommand(final ProbeCommand command) {
+
+        switch (command) {
+            case TURN_LEFT:
+                turnLeft();
+                break;
+            case TURN_RIGHT:
+                turnRight();
+                break;
+            case MOVE:
+                move();
+                break;
+        }
+    }
+
     public void turnLeft() {
         this.currentDirection = currentDirection.getLeftDirection();
     }

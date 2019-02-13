@@ -17,7 +17,7 @@ public class ProbeCommandService {
     public synchronized void execute(final ProbeCommandDTO dto) {
         final Probe probe = probeService.find(dto.getProbeId());
         final ProbeCommand command = dto.getCommand();
-        command.execute(probe);
+        probe.executeCommand(command);
         probeService.save(probe);
     }
 
