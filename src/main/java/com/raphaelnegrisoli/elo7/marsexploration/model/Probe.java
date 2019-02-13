@@ -139,7 +139,7 @@ public class Probe {
     }
 
     public boolean coordinateMatch(final Integer longitude, final Integer latitude) {
-        return getLongitude().compareTo(longitude) == 0 && getLatitude().compareTo(latitude) == 0;
+        return getLongitude().equals(longitude) && getLatitude().equals(latitude);
     }
 
     @Override
