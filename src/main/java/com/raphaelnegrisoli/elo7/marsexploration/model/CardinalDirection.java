@@ -2,7 +2,9 @@ package com.raphaelnegrisoli.elo7.marsexploration.model;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public enum CardinalDirection {
 
@@ -10,6 +12,10 @@ public enum CardinalDirection {
     EAST("E"),
     SOUTH("S"),
     WEST("W");
+
+    /** Copy values to optimize the safety-copy from the {@link #values()} method */
+    private static final List<CardinalDirection> SORTED_DIRECTIONS = Arrays.stream(values())
+            .collect(Collectors.toList());
 
     private static final Map<String, CardinalDirection> CARDINAL_DIRECTION_BY_MNEMONIC =
             new HashMap<>();
@@ -23,7 +29,6 @@ public enum CardinalDirection {
     private final String mnemonic;
 
     CardinalDirection(final String mnemonic) {
-
         this.mnemonic = mnemonic;
     }
 
@@ -34,16 +39,14 @@ public enum CardinalDirection {
 
     public CardinalDirection getLeftDirection() {
 
-        final CardinalDirection[] directions = values();
-        int indexAtLeftDirection = (directions.length + ordinal() - 1) % directions.length;
-        return directions[indexAtLeftDirection];
+        int indexAtLeftDirection = (SORTED_DIRECTIONS.size() + ordinal() - 1) % SORTED_DIRECTIONS.size();
+        return SORTED_DIRECTIONS.get(indexAtLeftDirection);
     }
 
     public CardinalDirection getRightDirection() {
 
-        final CardinalDirection[] directions = values();
-        int indexAtRightDirection = (ordinal() + 1) % directions.length;
-        return directions[indexAtRightDirection];
+        int indexAtRightDirection = (ordinal() + 1) % SORTED_DIRECTIONS.size();
+        return SORTED_DIRECTIONS.get(indexAtRightDirection);
     }
 
     public static CardinalDirection fromMnemonic(final String mnemonic) {
