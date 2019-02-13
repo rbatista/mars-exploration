@@ -21,16 +21,23 @@ public class ProbeService {
     }
 
     public Probe save(final Probe probe) {
+//        loadPlateau(probe);
         checkCoordinates(probe);
-        loadPlateau(probe);
         return probeRepository.save(probe);
     }
 
     private void checkCoordinates(final Probe probe) {
-        final Optional<Probe> probeAtSamePosition = probeRepository.findByLongitudeAndLatitude(probe.getLongitude(),
-                probe.getLatitude());
+        final Integer longitude = probe.getLongitude();
+        final Integer latitude = probe.getLatitude();
+        final Optional<Probe> probeAtSamePosition = probeRepository.findByLongitudeAndLatitude(longitude,
+                latitude);
+
         if (probeAtSamePosition.isPresent()) {
-            throw new IllegalArgumentException("Probe already deployed on the same coordinates");
+            final String errorMessage = String.format("Coordinate (%s, %s) already has another probe. Aborting the command",
+                    longitude, latitude);
+            probeAtSamePosition.map(Probe::getId)
+                    .filter(id -> id.equals(probe.getId()))
+                    .orElseThrow(() -> new IllegalArgumentException(errorMessage));
         }
     }
 
