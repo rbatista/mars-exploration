@@ -47,27 +47,21 @@ public class Plateau {
         probes.add(probe);
     }
 
-    public boolean isValidCoordinate(final Integer x, final Integer y) {
-        return isValidWidth(x) && isValidHeight(y);
+    public boolean isValidCoordinate(final Integer longitude, final Integer latitude) {
+        return isValidWidth(longitude) && isValidHeight(latitude);
     }
 
-    private boolean isValidHeight(final Integer y) {
-        return y >= 0 && y <= height;
+    private boolean isValidHeight(final Integer latitude) {
+        return latitude >= 0 && latitude <= height;
     }
 
-    private boolean isValidWidth(final Integer x) {
-        return x >= 0 && x <= width;
+    private boolean isValidWidth(final Integer longitude) {
+        return longitude >= 0 && longitude <= width;
     }
 
-    public boolean isCoordinateAvailable(final Integer x, final Integer y) {
-        for (final Probe probe : probes) {
-            if (probe.getLongitude() == x && probe.getLatitude() == y) {
+    public boolean isCoordinateAvailable(final Integer longitude, final Integer latitude) {
 
-                return false;
-            }
-        }
-
-        return true;
+        return probes.stream().noneMatch(probe -> probe.coordinateMatch(longitude, latitude));
     }
 
 }

@@ -123,7 +123,7 @@ public class Probe {
         longitude -= 1;
     }
 
-    private void validateCoordinate(int longitude, int latitude) {
+    private void validateCoordinate(final Integer longitude, final Integer latitude) {
         if (!plateau.isValidCoordinate(longitude, latitude)) {
             final String message = String.format("Coordinate (%s, %s) is not valid. Aborting the command.", longitude, latitude);
             LOGGER.error("Move probe {} to invalid coordinate ({}, {})", this, longitude, latitude);
@@ -136,6 +136,10 @@ public class Probe {
             LOGGER.error("Move probe {} to unavailable coordinate ({}, {})", this, longitude, latitude);
             throw new IllegalStateException(message);
         }
+    }
+
+    public boolean coordinateMatch(final Integer longitude, final Integer latitude) {
+        return getLongitude().compareTo(longitude) == 0 && getLatitude().compareTo(latitude) == 0;
     }
 
     @Override
